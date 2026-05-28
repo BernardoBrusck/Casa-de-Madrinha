@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, PlayCircle, Gamepad2, Cake, Sparkles, Plus, Music, Heart, Star } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
