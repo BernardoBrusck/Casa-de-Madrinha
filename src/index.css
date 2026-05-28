@@ -1,0 +1,202 @@
+/* Fontes carregadas via index.html com preconnect para máxima performance */
+
+:root {
+  /* Flow Fest Inspired Neo-Brutalist Palette */
+  --color-cream: #f3ecd2;
+  --color-white-card: #fffefb;
+  --color-dark: #211e42;
+  
+  /* Casa de Madrinha Brand Colors Adapted */
+  --color-yellow: #FFD100; /* Their yellow */
+  --color-pink: #FF4D85;   /* Their pink */
+  --color-cyan: #00E5FF;   /* Their cyan */
+  --color-purple: #48458d; /* Their purple */
+  --color-blue: #2F80ED;   /* Their blue */
+  --color-green: #65C04B;  /* Vibrant lime green */
+  
+  /* Text and Backgrounds */
+  --color-bg-white: var(--color-cream);
+  --color-bg-light: var(--color-white-card);
+  --color-text-dark: var(--color-dark);
+  --color-text-light: #444444;
+
+  /* Legacy aliases to not break other components */
+  --color-primary: var(--color-pink);
+  --color-secondary: var(--color-cyan);
+  --color-accent: var(--color-yellow);
+  --color-neutral-darker: var(--color-dark);
+  --color-neutral-gray: var(--color-text-light);
+  --color-white: var(--color-white-card);
+
+  /* Typography */
+  --font-heading: 'Fredoka', sans-serif;
+  --font-body: 'Quicksand', sans-serif;
+  
+  /* Borders - Neo-Brutalist Thick Borders */
+  --border-thick: 3px solid var(--color-dark);
+  --border-radius: 1.5rem;
+  --radius-btn: 4rem;
+  
+  /* Shadows - Neo-Brutalist Flat Offset */
+  --shadow-flat: 6px 6px 0px 0px var(--color-dark);
+  --shadow-flat-hover: 8px 8px 0px 0px var(--color-dark);
+  --shadow-sm: 4px 4px 0px 0px var(--color-dark);
+  
+  --transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  font-weight: 600;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--color-pink);
+  color: var(--color-text-dark);
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-flat);
+  background-color: #ff6696;
+}
+
+.btn-yellow {
+  background-color: var(--color-yellow);
+  color: var(--color-text-dark);
+}
+
+.btn-yellow:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-flat);
+}
+
+.btn-outline {
+  background-color: var(--color-white-card);
+  color: var(--color-text-dark);
+}
+
+.btn-outline:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-flat);
+  background-color: var(--color-cyan);
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #fffefb;
+}
+
+.btn-whatsapp:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-flat);
+  background-color: #20ba5a;
+  color: #fffefb;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.section-padding {
+  padding: 100px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Playful touches */
+.text-pink { color: var(--color-pink); }
+.text-cyan { color: var(--color-cyan); }
+.text-purple { color: var(--color-purple); }
+.text-blue { color: var(--color-blue); }
+.text-yellow { color: var(--color-yellow); }
+.text-green { color: var(--color-green); }
+
+.bg-green { background-color: var(--color-green); }
+
+/* Neo-brutalist Text Stroke Effect */
+.text-stroke {
+  color: var(--color-yellow);
+  -webkit-text-stroke: 2px var(--color-dark);
+  text-shadow: 4px 4px 0px var(--color-dark);
+}
+
+.bg-light { 
+  background-color: var(--color-bg-light); 
+  border-top: var(--border-thick);
+  border-bottom: var(--border-thick);
+}
+
+/* Rotation Utilities for organic feel */
+.rotate-right { transform: rotate(2deg); }
+.rotate-left { transform: rotate(-2deg); }

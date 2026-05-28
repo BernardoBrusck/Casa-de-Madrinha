@@ -1,0 +1,192 @@
+.footer {
+  background-color: var(--color-yellow);
+  color: var(--color-dark);
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
+  border-top: 6px solid var(--color-dark);
+}
+
+/* Divisória ondulada decorativa opcional para neo-brutalisas */
+.footer-decor {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.2fr;
+  gap: 50px;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-logo {
+  margin-bottom: 8px;
+}
+
+.footer-logo-img {
+  max-width: 180px;
+  height: auto;
+  filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.08));
+  transition: var(--transition);
+}
+
+.footer-logo-img:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.footer-bio {
+  color: var(--color-dark);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 380px;
+  font-weight: 600;
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  color: var(--color-dark);
+}
+
+.social-icon.instagram {
+  background-color: var(--color-pink);
+  color: var(--color-white-card);
+}
+
+.social-icon.facebook {
+  background-color: var(--color-blue);
+  color: var(--color-white-card);
+}
+
+.social-icon.whatsapp {
+  background-color: var(--color-green);
+  color: var(--color-white-card);
+}
+
+.social-icon:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0px var(--color-dark);
+}
+
+.footer-links h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+  color: var(--color-purple);
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
+  position: relative;
+  display: inline-block;
+}
+
+.footer-links h3::after {
+  display: none;
+}
+
+.footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-links li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--color-dark);
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.footer-links li:hover {
+  color: var(--color-pink);
+  transform: translateX(3px);
+}
+
+.footer-links .icon {
+  color: var(--color-pink);
+  flex-shrink: 0;
+  margin-top: 2px;
+  filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.1));
+}
+
+.footer-cta {
+  margin-top: 20px;
+}
+
+.footer-cta .btn {
+  width: 100%;
+  max-width: 240px;
+  box-shadow: 4px 4px 0px var(--color-dark);
+  font-size: 0.95rem;
+  padding: 14px 20px;
+}
+
+.footer-cta .btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--color-dark);
+}
+
+.footer-bottom {
+  border-top: var(--border-thick);
+  padding: 12px 0;
+  text-align: center;
+  background-color: var(--color-purple);
+  color: var(--color-white-card);
+  font-size: 0.95rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 991px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding-top: 60px;
+  }
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .footer-brand {
+    grid-column: span 1;
+  }
+  .footer-cta .btn {
+    max-width: 100%;
+  }
+}
