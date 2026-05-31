@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ArrowRight, ArrowLeft, CheckCircle2, MessageCircle, ChevronLeft, ChevronRight, Users, Minus, Plus } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import './Simulator.css';
 
 // ─── tipos ────────────────────────────────────────────────────────────────────
@@ -54,15 +55,28 @@ function buildCalendar(year: number, month: number) {
 // ─── componente principal ─────────────────────────────────────────────────────
 const Simulator = () => {
   const today = new Date();
+  const minDate = new Date();
+  minDate.setDate(today.getDate() + 5);
+  minDate.setHours(0, 0, 0, 0);
+
   const [step, setStep] = useState<Step>(1);
   const [cidade, setCidade] = useState('');
   const [unidadeId, setUnidadeId] = useState('');
   const [tipoEvento, setTipoEvento] = useState('');
-  const [calYear,  setCalYear]  = useState(today.getFullYear());
-  const [calMonth, setCalMonth] = useState(today.getMonth());
+  const [calYear,  setCalYear]  = useState(minDate.getFullYear());
+  const [calMonth, setCalMonth] = useState(minDate.getMonth());
   const [dataSel,  setDataSel]  = useState<string>('');
   const [convidados, setConvidados] = useState(50);
   const [extras, setExtras] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (step === 5) {
+      const colors = ['#D4A000', '#FF3366', '#00E5FF', '#9D4EDD'];
+      const defaults = { particleCount: 200, spread: 100, startVelocity: 60, colors, zIndex: 10000 };
+      confetti({ ...defaults, angle: 60, origin: { x: 0, y: 1 } });
+      confetti({ ...defaults, angle: 120, origin: { x: 1, y: 1 } });
+    }
+  }, [step]);
 
   // unidades disponíveis
   const unidadesDisponiveis = cidade ? UNIDADES[cidade] : [];
@@ -75,12 +89,11 @@ const Simulator = () => {
   const isPast = (d: number) => {
     const dt = new Date(calYear, calMonth, d);
     dt.setHours(0,0,0,0);
-    const t = new Date(); t.setHours(0,0,0,0);
-    return dt < t;
+    return dt < minDate;
   };
   const isSelected = (d: number) => dataSel === `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
   const prevMonth = () => {
-    if (calYear === today.getFullYear() && calMonth === today.getMonth()) return;
+    if (calYear === minDate.getFullYear() && calMonth === minDate.getMonth()) return;
     if (calMonth === 0) { setCalMonth(11); setCalYear(y => y - 1); }
     else setCalMonth(m => m - 1);
   };
@@ -88,7 +101,7 @@ const Simulator = () => {
     if (calMonth === 11) { setCalMonth(0); setCalYear(y => y + 1); }
     else setCalMonth(m => m + 1);
   };
-  const atMinMonth = calYear === today.getFullYear() && calMonth === today.getMonth();
+  const atMinMonth = calYear === minDate.getFullYear() && calMonth === minDate.getMonth();
 
   const selectDay = (d: number) => {
     if (isPast(d)) return;
@@ -116,10 +129,19 @@ const Simulator = () => {
   const TOTAL_STEPS = 5;
 
   // avançar automaticamente ao selecionar (passos 1, 2, 3)
-  const autoNext = () => setTimeout(() => setStep(s => Math.min(s + 1, TOTAL_STEPS) as Step), 320);
+  const autoNext = () => setTimeout(() => {
+    setStep(s => Math.min(s + 1, TOTAL_STEPS) as Step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 320);
 
-  const handleNext = () => setStep(s => Math.min(s + 1, TOTAL_STEPS) as Step);
-  const handlePrev = () => setStep(s => Math.max(s - 1, 1) as Step);
+  const handleNext = () => {
+    setStep(s => Math.min(s + 1, TOTAL_STEPS) as Step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const handlePrev = () => {
+    setStep(s => Math.max(s - 1, 1) as Step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const canProceed = () => {
     if (step === 1) return !!cidade;
@@ -143,6 +165,15 @@ const Simulator = () => {
 
   return (
     <div className="simulator-page">
+      <div className="sim-bubbles">
+        <div className="sim-bubble"></div>
+        <div className="sim-bubble"></div>
+        <div className="sim-bubble"></div>
+        <div className="sim-bubble"></div>
+        <div className="sim-bubble"></div>
+        <div className="sim-bubble"></div>
+        <div className="sim-bubble"></div>
+      </div>
       <div className="sim-inner">
 
         {/* ── Header ── */}
@@ -357,45 +388,74 @@ const Simulator = () => {
         {step === 5 && (
           <div className="sim-step animate-fade-in">
             <div className="sim-result">
-              <div className="sim-result-badge">🎉 Orçamento pronto!</div>
-              <div className="sim-result-price">
-                <span className="sim-result-currency">R$</span>
-                <span className="sim-result-amount">{calcTotal().toLocaleString('pt-BR')}</span>
-              </div>
-              <p className="sim-result-disclaimer">* Estimativa. Valor final confirmado pela nossa equipe.</p>
-
-              <div className="sim-result-summary">
-                <div className="sim-sum-row">
-                  <span>📍 Unidade</span>
-                  <strong>{unidadeSel?.nome}</strong>
+              <div className="sim-result-card">
+                
+                <div className="result-header bg-yellow">
+                  <h2>Orçamento Pronto! 🎉</h2>
+                  <p>O primeiro passo para uma festa inesquecível</p>
                 </div>
-                <div className="sim-sum-row">
-                  <span>🎉 Evento</span>
-                  <strong>{TIPOS_EVENTO.find(t => t.id === tipoEvento)?.label}</strong>
+                
+                <div className="result-price-section bg-cream">
+                  <div className="price-tag">
+                    <span className="currency">R$</span>
+                    <span className="amount">{calcTotal().toLocaleString('pt-BR')}</span>
+                  </div>
+                  <span className="disclaimer">* Valor estimado. Confirmação mediante disponibilidade.</span>
                 </div>
-                <div className="sim-sum-row">
-                  <span>📅 Data</span>
-                  <strong>{dataFormatada}</strong>
+                
+                <div className="result-details-grid bg-white">
+                  <div className="detail-box">
+                    <span className="detail-icon">📍</span>
+                    <div className="detail-text-col">
+                      <span className="detail-label">Local</span>
+                      <strong className="detail-val">{unidadeSel?.nome}</strong>
+                    </div>
+                  </div>
+                  <div className="detail-box">
+                    <span className="detail-icon">🎈</span>
+                    <div className="detail-text-col">
+                      <span className="detail-label">Evento</span>
+                      <strong className="detail-val">{TIPOS_EVENTO.find(t => t.id === tipoEvento)?.label}</strong>
+                    </div>
+                  </div>
+                  <div className="detail-box">
+                    <span className="detail-icon">📅</span>
+                    <div className="detail-text-col">
+                      <span className="detail-label">Data</span>
+                      <strong className="detail-val">{dataFormatada}</strong>
+                    </div>
+                  </div>
+                  <div className="detail-box">
+                    <span className="detail-icon">👥</span>
+                    <div className="detail-text-col">
+                      <span className="detail-label">Convidados</span>
+                      <strong className="detail-val">{convidados}</strong>
+                    </div>
+                  </div>
                 </div>
-                <div className="sim-sum-row">
-                  <span>👥 Convidados</span>
-                  <strong>{convidados} pessoas</strong>
-                </div>
+                
                 {extras.length > 0 && (
-                  <div className="sim-sum-row">
-                    <span>✨ Extras</span>
-                    <strong>{extras.map(id => EXTRAS.find(e => e.id === id)?.emoji).join(' ')}</strong>
+                  <div className="result-extras bg-cyan">
+                    <strong className="extras-title">✨ Serviços Adicionais:</strong>
+                    <div className="extras-tags">
+                      {extras.map(id => {
+                        const ex = EXTRAS.find(e => e.id === id);
+                        return <span key={id} className="extra-tag">{ex?.emoji} {ex?.label}</span>
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
 
-              <a href={getWhatsLink()} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp">
-                <MessageCircle size={20} />
-                Confirmar pelo WhatsApp
-              </a>
-              <button className="sim-restart-btn" onClick={() => { setStep(1); setCidade(''); setUnidadeId(''); setTipoEvento(''); setDataSel(''); setConvidados(50); setExtras([]); }}>
-                Refazer simulação
-              </button>
+              <div className="sim-result-actions">
+                <a href={getWhatsLink()} target="_blank" rel="noopener noreferrer" className="btn-final-whatsapp">
+                  <MessageCircle size={24} />
+                  <span>FINALIZAR PELO WHATSAPP</span>
+                </a>
+                <button className="sim-restart-btn" onClick={() => { setStep(1); setCidade(''); setUnidadeId(''); setTipoEvento(''); setDataSel(''); setConvidados(50); setExtras([]); }}>
+                  Refazer simulação
+                </button>
+              </div>
             </div>
           </div>
         )}

@@ -288,17 +288,25 @@ const Home = () => {
           <img src="/planet.png" alt="Planeta azul" className="planet-svg" style={{position: 'absolute', top: '5%', right: '5%', width: '120px', animation: 'float 8s infinite alternate', opacity: 0.9}} />
           <img src="/earth.png" alt="Terra" className="planet-svg" style={{position: 'absolute', bottom: '30%', left: '5%', width: '100px', animation: 'floatUpShape 6s infinite alternate', opacity: 0.9}} />
 
-          {/* Foguetinho animado estilo minhoca */}
-          <div style={{position: 'absolute', top: '25%', left: 0, width: '100%', height: '100px', pointerEvents: 'none', zIndex: 5}}>
-            <div style={{position: 'absolute', animation: 'snakeRocket 12s linear infinite'}}>
-              <img src="/rocket.png" alt="Rocket" style={{width: '80px'}} />
+          {/* Foguetinho animado estilo minhoca (Desktop) */}
+          <div className="rocket-wrapper desktop-rocket">
+            <div className="rocket-animation">
+              <img src="/rocket.png" alt="Rocket" className="rocket-img" />
             </div>
           </div>
         </div>
         <div className="container about-split-container">
           <div className="about-content">
             <p className="section-label label-yellow">CONHEÇA A CASA DE MADRINHA</p>
-            <h2 className="section-title-large">Nascida para<br/>Realizar Sonhos</h2>
+            <h2 className="section-title-large">
+              Nascida para<br/>
+              Realizar <span style={{ position: 'relative', whiteSpace: 'nowrap' }}>
+                Sonhos
+                <div className="mobile-rocket">
+                  <img src="/rocket.png" alt="Rocket" className="rocket-img" />
+                </div>
+              </span>
+            </h2>
             <p className="about-text">
               A Casa de Madrinha inspira a alegria de centenas de famílias em Santa Catarina. Ao lado de uma equipe dedicada, construímos um espaço que une segurança de ponta com a verdadeira essência da infância.
             </p>
@@ -322,17 +330,17 @@ const Home = () => {
           </h2>
           <div className="ecosystem-grid">
             <div className="eco-card border-pink">
-              <div className="eco-number text-pink">01</div>
+              <div className="eco-number">01</div>
               <h3 style={{color: 'inherit'}}>Pais e Mães</h3>
               <p style={{color: 'inherit'}}>Equipe presente do check-in ao check-out, cardápio delicioso e ambiente monitorado. Você curte junto ou relaxa na área dos pais — a festa é nossa responsabilidade.</p>
             </div>
             <div className="eco-card border-yellow">
-              <div className="eco-number text-yellow">02</div>
+              <div className="eco-number">02</div>
               <h3>Crianças e Jovens</h3>
               <p>Brinquedão gigante, fliperamas, cama elástica e os desafios que você só vê na internet. Diversão garantida com monitores super animados.</p>
             </div>
             <div className="eco-card border-cyan">
-              <div className="eco-number text-cyan">03</div>
+              <div className="eco-number">03</div>
               <h3>Adultos</h3>
               <p>Para quem quer celebrar sem preocupações. Festas de confraternização, aniversários e eventos familiares com estrutura completa de som e luz.</p>
             </div>
@@ -588,8 +596,8 @@ const Home = () => {
             <p style={{marginBottom: '32px', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto 32px', color: '#ffffff', position: 'relative', zIndex: 5}}>
               Finais de semana lotam rápido. Monte seu orçamento online em 2 minutos ou fale direto com a gente.
             </p>
-            <Link to="/simulator" className="btn btn-primary btn-lg" style={{padding: '16px 40px', fontSize: '1.2rem', position: 'relative', zIndex: 5}}>
-              MONTAR ORÇAMENTO ONLINE <ArrowRight size={20}/>
+            <Link to="/simulator" className="btn btn-primary btn-lg" style={{position: 'relative', zIndex: 5, whiteSpace: 'nowrap'}}>
+              MONTAR ORÇAMENTO
             </Link>
             <p style={{marginTop: '24px', fontSize: '0.9rem', position: 'relative', zIndex: 5}}>
               <a href="#" className="text-yellow" style={{fontWeight: 'bold', textDecoration: 'underline'}}>Fale com um atendente pelo WhatsApp</a>

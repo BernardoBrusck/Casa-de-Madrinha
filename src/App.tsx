@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Simulator from './pages/Simulator';
+import WhatsAppButton from './components/WhatsAppButton';
+import PopupCTA from './components/PopupCTA';
 import './index.css';
 
 function ScrollToTop() {
@@ -27,6 +29,8 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <WhatsAppButton />
+        <PopupCTA />
       </div>
     </Router>
   );
