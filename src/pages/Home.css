@@ -327,9 +327,7 @@
   padding-left: 50px;
 }
 
-.features-bar:hover .marquee-content {
-  animation-play-state: paused;
-}
+
 
 @keyframes scrollMarquee {
   0% { transform: translateX(0); }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { X, MessageCircle, PartyPopper, ArrowRight, Sparkles } from 'lucide-react';
+import { X, PartyPopper, ArrowRight, Sparkles } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import './PopupCTA.css';
 
 const PopupCTA = () => {
@@ -74,7 +75,7 @@ const PopupCTA = () => {
               className="btn popup-whats-btn btn-lg"
               onClick={() => setIsOpen(false)}
             >
-              <MessageCircle size={22} />
+              <WhatsAppIcon size={22} />
               Falar com Atendente
             </a>
           </div>

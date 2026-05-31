@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { ArrowRight, ArrowLeft, CheckCircle2, MessageCircle, ChevronLeft, ChevronRight, Users, Minus, Plus } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, Users, Minus, Plus } from 'lucide-react';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 import confetti from 'canvas-confetti';
 import './Simulator.css';
 
@@ -449,7 +450,7 @@ const Simulator = () => {
 
               <div className="sim-result-actions">
                 <a href={getWhatsLink()} target="_blank" rel="noopener noreferrer" className="btn-final-whatsapp">
-                  <MessageCircle size={24} />
+                  <WhatsAppIcon size={24} />
                   <span>FINALIZAR PELO WHATSAPP</span>
                 </a>
                 <button className="sim-restart-btn" onClick={() => { setStep(1); setCidade(''); setUnidadeId(''); setTipoEvento(''); setDataSel(''); setConvidados(50); setExtras([]); }}>
