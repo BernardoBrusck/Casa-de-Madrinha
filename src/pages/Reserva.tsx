@@ -228,10 +228,6 @@ const Reserva = () => {
     });
     setTimeout(() => document.querySelector('.sim-inner')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   };
-  const handlePrev = () => {
-    setStep(s => Math.max(s - 1, 1) as Step);
-    setTimeout(() => document.querySelector('.sim-inner')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-  };
 
   const canProceed = () => {
     if (step === 1) return !!cidade && !!unidadeId;
@@ -260,11 +256,6 @@ const Reserva = () => {
     return day === 0 || day === 6;
   };
 
-  const selIsHoliday = () => {
-    if (!dataSel) return false;
-    const [y, m, d] = dataSel.split('-');
-    return getHolidays(Number(y)).includes(`${m}-${d}`);
-  };
 
   const STEPS_LABELS = ['Local', 'Experiência', 'Data', 'Serviços', 'Comida', 'Dados', 'Orçamento', 'Confirmação'];
 
