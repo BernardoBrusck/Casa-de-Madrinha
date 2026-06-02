@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import TransitionLink from './TransitionLink';
 import { Menu, X } from 'lucide-react';
 import './Navbar.css';
 
@@ -48,7 +49,7 @@ const Navbar = () => {
   return (
     <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''} ${isOpen ? 'navbar-open' : ''} ${!isHome ? 'navbar-internal' : ''}`}>
       <div className="container navbar-container">
-        <Link to="/" className="navbar-logo" onClick={closeMenu}>
+        <TransitionLink to="/" className="navbar-logo" onClick={closeMenu}>
           <img 
             src="/Casa-de-Madrinha---Logotipo_principal.png" 
             alt="Casa de Madrinha Logo" 
@@ -58,7 +59,7 @@ const Navbar = () => {
             loading="eager"
             decoding="async"
           />
-        </Link>
+        </TransitionLink>
         
         {/* Hamburger Menu Toggle Button */}
         <button 
@@ -72,10 +73,12 @@ const Navbar = () => {
 
         <nav className={`navbar-links ${isOpen ? 'navbar-links-open' : ''}`}>
           <a 
-            href="#" 
+            href={isHome ? "#" : "/"} 
             onClick={(e) => { 
-              e.preventDefault(); 
-              window.scrollTo({top: 0, behavior: 'smooth'}); 
+              if (isHome) {
+                e.preventDefault(); 
+                window.scrollTo({top: 0, behavior: 'smooth'}); 
+              }
               closeMenu();
             }} 
             className="nav-link"
@@ -83,10 +86,12 @@ const Navbar = () => {
             Início
           </a>
           <a 
-            href="#espaco" 
+            href={isHome ? "#espaco" : "/#espaco"} 
             onClick={(e) => { 
-              const el = document.getElementById('espaco'); 
-              if(el) { e.preventDefault(); el.scrollIntoView({behavior: 'smooth'}); } 
+              if (isHome) {
+                const el = document.getElementById('espaco'); 
+                if(el) { e.preventDefault(); el.scrollIntoView({behavior: 'smooth'}); } 
+              }
               closeMenu();
             }} 
             className="nav-link"
@@ -94,23 +99,25 @@ const Navbar = () => {
             Unidades
           </a>
           <a 
-            href="#servicos" 
+            href={isHome ? "#servicos" : "/#servicos"} 
             onClick={(e) => { 
-              const el = document.getElementById('servicos'); 
-              if(el) { e.preventDefault(); el.scrollIntoView({behavior: 'smooth'}); } 
+              if (isHome) {
+                const el = document.getElementById('servicos'); 
+                if(el) { e.preventDefault(); el.scrollIntoView({behavior: 'smooth'}); } 
+              }
               closeMenu();
             }} 
             className="nav-link"
           >
             Serviços
           </a>
-          <Link to="/simulator" className="nav-mobile-btn btn btn-primary" onClick={closeMenu}>
-            Simular Reserva
-          </Link>
+          <TransitionLink to="/reserva" className="nav-mobile-btn btn btn-primary" onClick={closeMenu}>
+            Fazer Reserva
+          </TransitionLink>
         </nav>
         
         <div className="navbar-actions">
-          <Link to="/simulator" className="btn btn-primary">Simular Reserva</Link>
+          <TransitionLink to="/reserva" className="btn btn-primary">Fazer Reserva</TransitionLink>
         </div>
       </div>
     </header>

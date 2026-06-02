@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { X, PartyPopper, ArrowRight, Sparkles } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
+import { useTransition } from '../context/TransitionContext';
 import './PopupCTA.css';
 
 const PopupCTA = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-
   const location = useLocation();
+  const { isTransitioning, isInitialLoad } = useTransition();
 
   useEffect(() => {
     // Para teste rápido inicial
@@ -28,7 +29,7 @@ const PopupCTA = () => {
   }, []);
 
   if (location.pathname !== '/') return null;
-  if (!isOpen) return null;
+  if (!isOpen || isTransitioning || isInitialLoad) return null;
 
   return (
     <div className="popup-overlay">
@@ -59,7 +60,7 @@ const PopupCTA = () => {
               className="btn btn-primary btn-lg popup-sim-btn" 
               onClick={() => {
                 setIsOpen(false);
-                navigate('/simulator');
+                navigate('/reserva');
                 window.scrollTo(0, 0);
               }}
             >

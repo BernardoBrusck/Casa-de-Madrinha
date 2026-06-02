@@ -64,7 +64,7 @@ const Footer = () => {
             </li>
           </ul>
           <div className="footer-cta">
-            <a href="/simulator" className="btn btn-primary">Faça um Orçamento</a>
+            <a href="/reserva" className="btn btn-primary">Faça um Orçamento</a>
           </div>
         </div>
       </div>

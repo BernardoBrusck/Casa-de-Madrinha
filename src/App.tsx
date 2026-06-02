@@ -3,9 +3,11 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Simulator from './pages/Simulator';
+import Reserva from './pages/Reserva';
 import WhatsAppButton from './components/WhatsAppButton';
 import PopupCTA from './components/PopupCTA';
+import { TransitionProvider } from './context/TransitionContext';
+import PageTransition from './components/PageTransition';
 import './index.css';
 
 function ScrollToTop() {
@@ -19,19 +21,22 @@ function ScrollToTop() {
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <div className="app">
+      <TransitionProvider>
+        <PageTransition />
+        <ScrollToTop />
+        <div className="app">
         <Navbar />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/simulator" element={<Simulator />} />
+            <Route path="/reserva" element={<Reserva />} />
           </Routes>
         </main>
         <Footer />
         <WhatsAppButton />
         <PopupCTA />
       </div>
+      </TransitionProvider>
     </Router>
   );
 }

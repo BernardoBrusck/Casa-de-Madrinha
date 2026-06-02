@@ -200,3 +200,45 @@ ul {
 /* Rotation Utilities for organic feel */
 .rotate-right { transform: rotate(2deg); }
 .rotate-left { transform: rotate(-2deg); }
+
+/* Page Transition Loader */
+.page-transition-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-pink);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.transition-logo {
+  position: relative;
+  z-index: 2;
+  width: 80%;
+  max-width: 400px;
+  filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.2));
+}
+
+.bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.transition-bubble {
+  position: absolute;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2) 60%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 50%;
+  box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.2), 0 5px 15px rgba(0,0,0,0.1);
+  backdrop-filter: blur(2px);
+  will-change: transform;
+}

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import TransitionLink from '../components/TransitionLink';
 import { ArrowRight, PlayCircle, Gamepad2, Cake, Sparkles, Plus, Music, Heart, Star } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -197,9 +197,9 @@ const Home = () => {
               Brinquedão gigante, equipe de monitores especializados e a energia de sentir na pele o que é viver um dia mágico.
             </p>
             <div className="hero-actions-split hero-anim-up hero-delay-3">
-              <Link to="/simulator" className="btn btn-primary btn-lg">
+              <TransitionLink to="/reserva" className="btn btn-primary btn-lg">
                 Reservar Data <ArrowRight size={20} />
-              </Link>
+              </TransitionLink>
               <a href="#espaco" className="btn btn-outline btn-lg" style={{ backgroundColor: 'white' }}>
                 Ver como funciona
               </a>
@@ -384,9 +384,9 @@ const Home = () => {
                 <span className="tag">Brinquedão e Games</span>
                 <span className="tag">Equipe Completa</span>
               </div>
-              <Link to="/simulator" className="btn btn-primary" style={{marginTop: '32px'}}>
+              <TransitionLink to="/reserva" className="btn btn-primary" style={{marginTop: '32px'}}>
                 Reservar Agora <ArrowRight size={20} />
-              </Link>
+              </TransitionLink>
             </div>
             <div className="birthday-image bg-yellow">
               {/* Image Placeholder */}
@@ -515,7 +515,7 @@ const Home = () => {
                 <li>• Equipe de monitores</li>
                 <li>• Lanche incluso</li>
               </ul>
-              <Link to="/simulator" className="exp-link exp-link-cyan">SAIBA MAIS <ArrowRight size={16}/></Link>
+              <TransitionLink to="/reserva" className="exp-link exp-link-cyan">SAIBA MAIS <ArrowRight size={16}/></TransitionLink>
             </div>
             {/* Card 2 */}
             <div className="exp-box">
@@ -527,7 +527,7 @@ const Home = () => {
                 <li>• Café da manhã</li>
                 <li>• Recreação noturna</li>
               </ul>
-              <Link to="/simulator" className="exp-link exp-link-purple">SAIBA MAIS <ArrowRight size={16}/></Link>
+              <TransitionLink to="/reserva" className="exp-link exp-link-purple">SAIBA MAIS <ArrowRight size={16}/></TransitionLink>
             </div>
             {/* Card 3 */}
             <div className="exp-box">
@@ -539,7 +539,7 @@ const Home = () => {
                 <li>• Som ambiente</li>
                 <li>• Limpeza inclusa</li>
               </ul>
-              <Link to="/simulator" className="exp-link exp-link-yellow">RESERVAR <ArrowRight size={16}/></Link>
+              <TransitionLink to="/reserva" className="exp-link exp-link-yellow">RESERVAR <ArrowRight size={16}/></TransitionLink>
             </div>
             {/* Card 4 */}
             <div className="exp-box">
@@ -551,7 +551,7 @@ const Home = () => {
                 <li>• Pista de dança</li>
                 <li>• Bar disponível</li>
               </ul>
-              <Link to="/simulator" className="exp-link exp-link-pink">SAIBA MAIS <ArrowRight size={16}/></Link>
+              <TransitionLink to="/reserva" className="exp-link exp-link-pink">SAIBA MAIS <ArrowRight size={16}/></TransitionLink>
             </div>
           </div>
         </div>
@@ -596,9 +596,9 @@ const Home = () => {
             <p style={{marginBottom: '32px', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto 32px', color: '#ffffff', position: 'relative', zIndex: 5}}>
               Finais de semana lotam rápido. Monte seu orçamento online em 2 minutos ou fale direto com a gente.
             </p>
-            <Link to="/simulator" className="btn btn-primary btn-lg" style={{position: 'relative', zIndex: 5, whiteSpace: 'nowrap'}}>
+            <TransitionLink to="/reserva" className="btn btn-primary btn-lg" style={{position: 'relative', zIndex: 5, whiteSpace: 'nowrap'}}>
               MONTAR ORÇAMENTO
-            </Link>
+            </TransitionLink>
             <p style={{marginTop: '24px', fontSize: '0.9rem', position: 'relative', zIndex: 5}}>
               <a href="#" className="text-yellow" style={{fontWeight: 'bold', textDecoration: 'underline'}}>Fale com um atendente pelo WhatsApp</a>
             </p>
