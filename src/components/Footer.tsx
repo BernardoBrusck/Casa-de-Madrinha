@@ -70,7 +70,9 @@ const Footer = () => {
       </div>
       <div className="footer-bottom">
         <div className="container">
-          <p>&copy; 2026 Casa de Madrinha. Todos os direitos reservados.</p>
+          <p>
+            Este site é uma demonstração desenvolvida pela <a href="https://brusck.com" target="_blank" rel="noopener noreferrer" className="demo-link">BRUSCK</a>. Todos os direitos reservados.
+          </p>
         </div>
       </div>
     </footer>

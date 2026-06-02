@@ -155,7 +155,7 @@
 
 .footer-bottom {
   border-top: var(--border-thick);
-  padding: 12px 0;
+  padding: 16px 0;
   text-align: center;
   background-color: var(--color-purple);
   color: var(--color-white-card);
@@ -163,6 +163,18 @@
   font-weight: 700;
   position: relative;
   z-index: 10;
+}
+
+.demo-link {
+  color: var(--color-white-card);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: var(--transition);
+}
+
+.demo-link:hover {
+  color: var(--color-yellow);
 }
 
 @media (max-width: 991px) {

@@ -52,6 +52,38 @@ const PACOTES_COMIDA = [
 const WEEKDAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
+function getEaster(year: number) {
+  const f = Math.floor,
+      G = year % 19,
+      C = f(year / 100),
+      H = (C - f(C / 4) - f((8 * C + 13) / 25) + 19 * G + 15) % 30,
+      I = H - f(H / 28) * (1 - f(29 / (H + 1)) * f((21 - G) / 11)),
+      J = (year + f(year / 4) + I + 2 - C + f(C / 4)) % 7,
+      L = I - J,
+      month = 3 + f((L + 40) / 44),
+      day = L + 28 - 31 * f(month / 4);
+  return new Date(year, month - 1, day);
+}
+
+function getHolidays(year: number) {
+  const fixedHolidays = ['01-01', '04-21', '05-01', '09-07', '10-12', '11-02', '11-15', '12-25'];
+  const easter = getEaster(year);
+  const addDays = (date: Date, days: number) => {
+    const res = new Date(date);
+    res.setDate(res.getDate() + days);
+    return res;
+  };
+  const format = (d: Date) => `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  
+  return [
+    ...fixedHolidays,
+    format(addDays(easter, -47)), // Carnaval
+    format(addDays(easter, -2)),  // Sexta-feira Santa
+    format(easter),               // Páscoa
+    format(addDays(easter, 60))   // Corpus Christi
+  ];
+}
+
 function buildCalendar(year: number, month: number) {
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -66,6 +98,7 @@ const Reserva = () => {
   today.setHours(0,0,0,0);
   
   const [step, setStep] = useState<Step>(1);
+  const [maxStep, setMaxStep] = useState<Step>(1);
   
   // Passo 1: Local
   const [cidade, setCidade] = useState('');
@@ -132,6 +165,11 @@ const Reserva = () => {
     return dt < today;
   };
   const isSelected = (d: number) => dataSel === `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  const isHoliday = (d: number) => {
+    if (!d) return false;
+    const holidays = getHolidays(calYear);
+    return holidays.includes(`${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`);
+  };
   
   const prevMonth = () => {
     if (calYear === today.getFullYear() && calMonth === today.getMonth()) return;
@@ -183,7 +221,11 @@ const Reserva = () => {
   const TOTAL_STEPS = 8;
 
   const handleNext = () => {
-    setStep(s => Math.min(s + 1, TOTAL_STEPS) as Step);
+    setStep(s => {
+      const nextStep = Math.min(s + 1, TOTAL_STEPS) as Step;
+      setMaxStep(m => Math.max(m, nextStep) as Step);
+      return nextStep;
+    });
     setTimeout(() => document.querySelector('.sim-inner')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   };
   const handlePrev = () => {
@@ -211,6 +253,19 @@ const Reserva = () => {
   const dayOfWeek = dataSel ? WEEKDAYS[new Date(Number(dataSel.split('-')[0]), Number(dataSel.split('-')[1])-1, Number(dataSel.split('-')[2])).getDay()] : '';
   const monthName = dataSel ? MONTHS[Number(dataSel.split('-')[1])-1] : '';
 
+  const selIsWeekend = () => {
+    if (!dataSel) return false;
+    const [y, m, d] = dataSel.split('-');
+    const day = new Date(Number(y), Number(m)-1, Number(d)).getDay();
+    return day === 0 || day === 6;
+  };
+
+  const selIsHoliday = () => {
+    if (!dataSel) return false;
+    const [y, m, d] = dataSel.split('-');
+    return getHolidays(Number(y)).includes(`${m}-${d}`);
+  };
+
   const STEPS_LABELS = ['Local', 'Experiência', 'Data', 'Serviços', 'Comida', 'Dados', 'Orçamento', 'Confirmação'];
 
   return (
@@ -230,24 +285,28 @@ const Reserva = () => {
         {/* ── Top Header Progress ── */}
         <div className="sim-top-nav">
           <div className="sim-steps-row">
-            {STEPS_LABELS.map((label, i) => (
-              <div key={i} className={`sim-step-indicator ${step === i + 1 ? 'active' : ''} ${step > i + 1 ? 'completed' : ''}`}>
-                <div className="step-num">{step > i + 1 ? <CheckCircle2 size={14} strokeWidth={3}/> : i + 1}</div>
-                <span className="step-name">{label}</span>
-                {i < STEPS_LABELS.length - 1 && <div className="step-line" />}
-              </div>
-            ))}
+            {STEPS_LABELS.map((label, i) => {
+              const targetStep = (i + 1) as Step;
+              const isClickable = targetStep <= maxStep;
+              return (
+                <div 
+                  key={i} 
+                  className={`sim-step-indicator ${step === targetStep ? 'active' : ''} ${step > targetStep ? 'completed' : ''} ${isClickable ? 'clickable' : ''}`}
+                  onClick={() => {
+                    if (isClickable && targetStep !== step) {
+                      setStep(targetStep);
+                    }
+                  }}
+                  style={{ cursor: isClickable ? 'pointer' : 'default', opacity: isClickable ? 1 : 0.6 }}
+                >
+                  <div className="step-num">{step > targetStep ? <CheckCircle2 size={14} strokeWidth={3}/> : targetStep}</div>
+                  <span className="step-name">{label}</span>
+                  {i < STEPS_LABELS.length - 1 && <div className="step-line" />}
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        {/* ── Voltar (Topo) ── */}
-        {step > 1 && step < 8 && (
-          <div className="sim-back-nav">
-            <button className="btn-back-discreet" onClick={handlePrev}>
-              <ChevronLeft size={16} /> Voltar
-            </button>
-          </div>
-        )}
 
         {/* ── Passo 1: Local ── */}
         {step === 1 && (
@@ -365,6 +424,7 @@ const Reserva = () => {
                           d === null         ? 'empty'    : '',
                           d && isPast(d)     ? 'past'     : '',
                           d && isToday(d)    ? 'today'    : '',
+                          d && isHoliday(d)  ? 'holiday'  : '',
                           d && isSelected(d) ? 'selected' : '',
                         ].join(' ')}
                         onClick={() => d && !isPast(d) && selectDay(d)}
@@ -376,6 +436,8 @@ const Reserva = () => {
                   </div>
                   <div className="cal-legend">
                     <span><span className="leg-dot dot-sel"/>Selecionado</span>
+                    <span><span className="leg-dot dot-holiday"/>Feriado</span>
+                    <span><span className="leg-dot dot-reserved"/>Reservado</span>
                     <span><span className="leg-dot dot-past"/>Bloqueado</span>
                   </div>
                 </div>
@@ -407,7 +469,9 @@ const Reserva = () => {
                   {dataSel ? (
                     <>
                       <h3 className="resume-date-title text-cyan">{dayOfWeek}, {dataSel.split('-')[2]} De {monthName}</h3>
-                      <p className="resume-date-sub">Dia de Semana - <del className="text-muted">R$ 3.290</del> <strong>R$ 2.790</strong> <span className="promo-txt">Promo</span></p>
+                      {!selIsWeekend() && (
+                        <p className="resume-date-sub">Dia de Semana - Promoção de -10% <span className="promo-txt">Promo</span></p>
+                      )}
                     </>
                   ) : (
                     <h3 className="resume-date-title text-muted">Selecione uma data</h3>

@@ -474,6 +474,8 @@
 .cal-day.past { color: rgba(0,0,0,0.2); cursor: not-allowed; background: transparent; }
 .cal-day.selected { background: var(--color-yellow); color: var(--color-dark); border-color: var(--color-dark); transform: scale(1.1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
 .cal-day.today { border-color: var(--color-cyan); }
+.cal-day.holiday { background-color: #a8e6cf; }
+.cal-day.holiday.selected { background-color: var(--color-yellow); }
 
 .cal-legend {
   display: flex; gap: 20px; justify-content: center; margin-top: 24px;
@@ -482,6 +484,8 @@
 .leg-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; border: 2px solid var(--color-dark); }
 .dot-sel { background: var(--color-yellow); }
 .dot-past { background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.2); }
+.dot-holiday { background: #a8e6cf; }
+.dot-reserved { background: #ff4d4f; }
 
 .panel-label {
   font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px;
