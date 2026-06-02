@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface TransitionContextType {

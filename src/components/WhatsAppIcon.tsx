@@ -1,5 +1,5 @@
 // src/components/WhatsAppIcon.tsx
-import React from 'react';
+
 
 const WhatsAppIcon = ({ size = 24, className = '' }: { size?: number | string, className?: string }) => {
   return (

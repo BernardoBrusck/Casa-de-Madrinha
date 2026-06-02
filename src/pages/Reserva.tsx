@@ -407,7 +407,7 @@ const Reserva = () => {
                   {dataSel ? (
                     <>
                       <h3 className="resume-date-title text-cyan">{dayOfWeek}, {dataSel.split('-')[2]} De {monthName}</h3>
-                      <p className="resume-date-sub">Dia de Semana - <strike className="text-muted">R$ 3.290</strike> <strong>R$ 2.790</strong> <span className="promo-txt">Promo</span></p>
+                      <p className="resume-date-sub">Dia de Semana - <del className="text-muted">R$ 3.290</del> <strong>R$ 2.790</strong> <span className="promo-txt">Promo</span></p>
                     </>
                   ) : (
                     <h3 className="resume-date-title text-muted">Selecione uma data</h3>
@@ -614,7 +614,7 @@ const Reserva = () => {
                   <div className="input-group">
                     <label>Cidade</label>
                     <div className="brutal-input-wrap">
-                      <input type="text" name="cidade" value={formData.cidade} onChange={handleFormChange} />
+                      <input type="text" name="cidadeAddr" value={formData.cidadeAddr} onChange={handleFormChange} />
                     </div>
                   </div>
                   <div className="input-group short">
